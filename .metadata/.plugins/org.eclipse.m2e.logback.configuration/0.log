@@ -1,0 +1,23 @@
+2016-06-15 14:40:47,651 [Worker-11] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: poormansgrep:BonusProject:0.0.1-SNAPSHOT @ C:\Users\marvin\Documents\GitHub\Bonusprojekt\pom.xml.
+2016-06-15 14:40:51,013 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-06-15 14:40:51,013 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\marvin\Documents\GitHub\Bonusprojekt\src\main\resources
+2016-06-15 14:40:51,770 [Worker-9] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: poormansgrep:BonusProject:0.0.1-SNAPSHOT @ C:\Users\marvin\Documents\GitHub\Bonusprojekt\pom.xml.
+2016-06-15 14:40:51,772 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-06-15 14:40:51,773 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\marvin\Documents\GitHub\Bonusprojekt\src\test\resources
+2016-06-15 14:40:53,723 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-06-15 14:40:53,723 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\marvin\Documents\GitHub\Bonusprojekt\src\main\resources
+2016-06-15 14:40:53,725 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-06-15 14:40:53,725 [Worker-11] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\marvin\Documents\GitHub\Bonusprojekt\src\test\resources
+2016-06-15 14:42:12,198 [Worker-15] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: poormansgrep:BonusProject:0.0.1-SNAPSHOT @ C:\Users\marvin\Documents\GitHub\Bonusproject-SE1\BonusProject\pom.xml.
+2016-06-15 14:42:12,824 [Worker-15] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /BonusProject/src/main/java
+2016-06-15 14:42:12,825 [Worker-15] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /BonusProject/src/main/resources
+2016-06-15 14:42:12,826 [Worker-15] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /BonusProject/src/test/java
+2016-06-15 14:42:12,973 [Worker-15] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 1 sec
+2016-06-15 14:42:13,935 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-06-15 14:42:13,942 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2016-06-15 14:42:13,971 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-06-15 14:42:13,972 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\marvin\Documents\GitHub\Bonusproject-SE1\BonusProject\src\test\resources
+2016-06-15 14:42:46,249 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-06-15 14:42:46,256 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2016-06-15 14:42:46,258 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-06-15 14:42:46,258 [Worker-10] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\marvin\Documents\GitHub\Bonusproject-SE1\BonusProject\src\test\resources

@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import poormansgrep.BonusProject.Search;
-
+// comment
 public class Grep {
 	/**
 	 * Implements grep options -l and -i and uses singleSearch and multiSearch of class search.
