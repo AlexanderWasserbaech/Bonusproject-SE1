@@ -1,0 +1,4 @@
+main DEBUG BonusProject.App - With respect to logging you may want to configure file 
+main DEBUG BonusProject.App - 'src/main/resources/log4j2.xml' to suit your needs.
+main DEBUG BonusProject.App - This config file 'log4j2.xml' will result in 'A1.log'
+main DEBUG BonusProject.App - file containing logging output as well.
