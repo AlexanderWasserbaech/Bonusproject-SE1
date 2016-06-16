@@ -76,10 +76,9 @@ public class AppTest {
 //	public void testCommands() throws Exception{
 //		
 //		String[] commands = new String [] {"-l", "-i"};
-//		Assert.assertTrue (commands .equals("-l"));
-//		Assert.assertTrue(commands.equals("-i"));
+//		Assert.assertEquals(commands, outContent.toByteArray());
+//		
 //	}
-	
 }
 =======
    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
