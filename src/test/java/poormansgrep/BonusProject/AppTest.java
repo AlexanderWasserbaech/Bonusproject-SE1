@@ -64,7 +64,14 @@ public class AppTest {
 		
 		}
 		
-		//	@Test 
+//	@Test
+//		
+//	public void checkFile() throws FileNotFoundException, IOException{
+//			
+//	File file = new File ("index.txt");
+//	Assert.assertEquals(file.length() == 0 && file.exists(), "index.txt");
+//		}
+//	@Test 
 //	
 //	public void testCommands() throws Exception{
 //		
