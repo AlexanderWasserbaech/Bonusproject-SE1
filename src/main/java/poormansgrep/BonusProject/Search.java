@@ -32,6 +32,18 @@ public class Search {
 				index++;
 			}
 		}
+		text = "";
+		for (String s: lines){
+			if(s!=null){
+				text += s + "\n";
+			}
+		}
+		lines = text.split("\\r?\\n");
+		for (int j=0; j<lines.length;j++){
+			if(j!=lines.length-1){
+				lines[j] = lines[j] + "\n";
+			}
+		}
 		return lines;
 	}
 
@@ -49,10 +61,9 @@ public class Search {
 	 */
 	protected static String singleSearch(String keyword, String text, boolean i) {
 		String returnString = "";
-
 		for (String s : search(keyword, text, i)) {
 			if (s != null)
-				returnString += s + "\n";
+				returnString += s;
 		}
 		return returnString;
 	}
