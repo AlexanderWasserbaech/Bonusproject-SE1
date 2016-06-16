@@ -63,6 +63,15 @@ public class AppTest {
 	writer.close();
 		
 		}
+		
+		//	@Test 
+//	
+//	public void testCommands() throws Exception{
+//		
+//		String[] commands = new String [] {"-l", "-i"};
+//		Assert.assertTrue (commands .equals("-l"));
+//		Assert.assertTrue(commands.equals("-i"));
+//	}
 	
 }
 =======
