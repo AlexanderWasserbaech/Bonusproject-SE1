@@ -1,16 +1,18 @@
 package poormansgrep.BonusProject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.PrintStream;
+import java.nio.file.*;
 import java.util.Scanner;
+
 import poormansgrep.BonusProject.Search;
-// comment
 public class Grep {
 	/**
 	 * Implements grep options -l and -i and uses singleSearch and multiSearch of class search.
@@ -23,29 +25,40 @@ public class Grep {
 	 * 			when given path is wrong or file does not exist
 	 * @throws IOException
 	 */
-	static BufferedReader source = new BufferedReader(new InputStreamReader(System.in));
-	static FileInputStream fin,fin2;
+	static BufferedReader source;
+	static FileInputStream fin;
+	static Scanner sc;
 	public static void GrepTest(String[] commands) throws FileNotFoundException, IOException{
-		
-		if (commands.length < 1){
+		if (commands.length == 0){
 			System.out.println("No Commands were given, for usage give commands in following form:\n\n"
 								+ "grep [-i] [-l] searchString [file 1] [file 2]\n"
 								+ "whereas -i is 'case sensitive' and -l 'output filename'");
+			System.exit(0);
 		} else {
 			String[] str = {"",""}, fileName = new String[2];
 			String key = "";
 			Boolean l = false,i = false;
 			int j2 = 0, fileCount = 0;
 			Path p;
-			
-			Scanner sc,sc2;
 			for(int j = 0; j< commands.length; j++){
-				if (commands[j].equals("-l")){
-					l = true;
-					j2++;
-				} else if (commands[j].equals("-i")){
-					i = true;
-					j2++;
+				if (commands[j].charAt(0)== '-'){
+					if(commands[j].toCharArray().length>2){
+						System.out.println("Unknown command");
+						System.exit(0);
+					}
+					switch (commands[j]) {
+					case "-i":
+						i = true;
+						j2++;
+						break;
+					case "-l":
+						l = true;
+						j2++;
+						break;
+					default:
+						break;						
+					}
+					
 				} else if (j==j2) {
 					key = commands[j];
 				} else if (commands[j].contains(".txt")){
@@ -58,10 +71,10 @@ public class Grep {
 					fin = new FileInputStream(new File(commands[commands.length-1]));
 					sc = new Scanner(fin, "UTF-8");
 					while(sc.hasNextLine()){
-						str[0] = str[0] + (sc.hasNextLine() ? sc.nextLine() : "") + "\n";
+						str[0] = str[0] + (sc.hasNextLine() ? sc.nextLine()+ "\n": "");
 					}
 					sc.close();
-					System.out.println(Search.singleSearch(key, str[0], i));
+					System.out.print(Search.singleSearch(key, str[0], i));
 					break;
 				case 2:
 					// extract file name
@@ -78,16 +91,27 @@ public class Grep {
 					sc.close();
 					fin.close();
 					// second file input
-					fin2 = new FileInputStream(new File(commands[commands.length-1]));
-					sc2 = new Scanner(fin2, "UTF-8");
-					while(sc2.hasNextLine()){
-						str[1] = str[1] + (sc2.hasNextLine() ? sc2.nextLine() : "") + "\n";
+					fin = new FileInputStream(new File(commands[commands.length-1]));
+					sc = new Scanner(fin, "UTF-8");
+					while(sc.hasNextLine()){
+						str[1] = str[1] + (sc.hasNextLine() ? sc.nextLine() : "") + "\n";
 					}
-					sc2.close();
-					fin2.close();
+					sc.close();
+					fin.close();
 					System.out.println(Search.multiSearch(key, str, i,l, fileName));
 					break;
 				default:
+					File f = new File("D:/workspace/input2.txt");
+					byte[] buffer = new byte[ (int) f.length() ];
+					InputStream in = new FileInputStream( f );
+					in.read( buffer );
+					in.close();
+					if(buffer.length==0){
+						System.out.println("Empty piping or no file");
+						source.close();
+						System.exit(0);
+					}
+					source  = new BufferedReader(new InputStreamReader(System.in));
 					while((str[1] = source.readLine())!= null){
 						str[0] = str[0] + str[1] + "\n";
 					}
@@ -109,14 +133,19 @@ public class Grep {
 		GrepTest(commands);
 		
 		//following code is only for testing purpose
+		
 		int i = 0;
 		for(String s: args){
 			if(i==0){
-				System.out.println("The following commands were given to GrepTest");
+				System.out.println("\n\nThe following commands were given to GrepTest");
 			}
 			System.out.println(s);
 			commands[i] = s;
 			i++;
 		}
+
+		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+		System.out.println(outContent.toString());
 	}
 }
