@@ -32,18 +32,6 @@ public class Search {
 				index++;
 			}
 		}
-		text = "";
-		for (String s: lines){
-			if(s!=null){
-				text += s + "\n";
-			}
-		}
-		lines = text.split("\\r?\\n");
-		for (int j=0; j<lines.length;j++){
-			if(j!=lines.length-1){
-				lines[j] = lines[j] + "\n";
-			}
-		}
 		return lines;
 	}
 
@@ -63,7 +51,10 @@ public class Search {
 		String returnString = "";
 		for (String s : search(keyword, text, i)) {
 			if (s != null)
-				returnString += s;
+				returnString += s + "\n";
+		}
+		if(returnString.length()>=2){
+			returnString = returnString.substring(0,returnString.length()-1);
 		}
 		return returnString;
 	}
@@ -104,6 +95,9 @@ public class Search {
 					}
 				}
 			}
+		}
+		if(returnString.length()>=2){
+			returnString = returnString.substring(0,returnString.length()-1);
 		}
 		return returnString;
 	}

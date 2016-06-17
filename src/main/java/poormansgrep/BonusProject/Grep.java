@@ -101,21 +101,18 @@ public class Grep {
 					System.out.println(Search.multiSearch(key, str, i,l, fileName));
 					break;
 				default:
-					File f = new File("D:/workspace/input2.txt");
-					byte[] buffer = new byte[ (int) f.length() ];
-					InputStream in = new FileInputStream( f );
-					in.read( buffer );
-					in.close();
-					if(buffer.length==0){
-						System.out.println("Empty piping or no file");
-						source.close();
-						System.exit(0);
-					}
-					source  = new BufferedReader(new InputStreamReader(System.in));
-					while((str[1] = source.readLine())!= null){
-						str[0] = str[0] + str[1] + "\n";
-					}
-					source.close();
+				    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				    PrintStream ps = new PrintStream(baos);
+				    PrintStream old = System.out;
+				    System.setOut(ps);
+				    System.out.print("");
+				    System.out.flush();
+				    System.setOut(old);
+				    str[0] = baos.toString();
+				    if(str[0].isEmpty()){
+				    	System.out.println("No textfile was given or empty piping");
+				    	System.exit(0);
+				    }
 					System.out.println(Search.singleSearch(key, str[0], i));
 					break;
 				}
@@ -137,7 +134,7 @@ public class Grep {
 		int i = 0;
 		for(String s: args){
 			if(i==0){
-				System.out.println("\n\nThe following commands were given to GrepTest");
+				System.out.println("\nThe following commands were given to GrepTest");
 			}
 			System.out.println(s);
 			commands[i] = s;
