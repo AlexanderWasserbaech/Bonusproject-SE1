@@ -27,27 +27,30 @@ public class Grep {
 	static FileInputStream fin;
 	static Scanner sc;
 	public static void GrepTest(String[] commands) throws FileNotFoundException, IOException{
+		String[] str = {"",""}, fileName = new String[2];
+		String key = "";
+		Boolean l = false,i = false;
+		int j2 = 0, fileCount = 0;
+		int save = 0;
+		Path p;
+		try{
 		if (commands.length == 0){
-			System.out.println("No Commands were given, for usage give commands in following form:\n\n"
+			System.out.print("No Commands were given, for usage give commands in following form:\n\n"
 								+ "grep [-i] [-l] searchString [file 1] [file 2]\n"
 								+ "whereas -i is 'case sensitive' and -l 'output filename'");
-			System.exit(0);
+			throw new Exception();
 		} else {
-			String[] str = {"",""}, fileName = new String[2];
-			String key = "";
-			Boolean l = false,i = false;
-			int j2 = 0, fileCount = 0;
-			Path p;
 			for(int j = 0; j< commands.length; j++){
 				if (commands[j].charAt(0)== '-'){
 					if(commands[j].toCharArray().length>2){
-						System.out.println("Unknown command");
-						System.exit(0);
+						System.out.print("Unknown command");
+						throw new Exception();
 					}
 					switch (commands[j]) {
 					case "-i":
 						i = true;
 						j2++;
+						save = j;
 						break;
 					case "-l":
 						l = true;
@@ -63,9 +66,12 @@ public class Grep {
 					fileCount++;
 				}
 			}
-			try {
 				switch (fileCount) {
 				case 1:
+					if(commands[save].equals("-l")){
+						System.out.print("Wrong command for single file");
+						throw new Exception();
+					}
 					fin = new FileInputStream(new File(commands[commands.length-1]));
 					sc = new Scanner(fin, "UTF-8");
 					while(sc.hasNextLine()){
@@ -96,7 +102,7 @@ public class Grep {
 					}
 					sc.close();
 					fin.close();
-					System.out.println(Search.multiSearch(key, str, i,l, fileName));
+					System.out.print(Search.multiSearch(key, str, i,l, fileName));
 					break;
 				default:
 				    ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -108,19 +114,19 @@ public class Grep {
 				    System.setOut(old);
 				    str[0] = baos.toString();
 				    if(str[0].isEmpty()){
-				    	System.out.println("No textfile was given or empty piping");
-				    	System.exit(0);
+				    	System.out.print("No textfile was given or empty piping");
+				    	throw new Exception();
 				    }
 					System.out.println(Search.singleSearch(key, str[0], i));
 					break;
 				}
-			} catch (FileNotFoundException e){
-				System.out.println("File not Found");
-			} catch (Exception e) {
-				System.out.println("Something went wrong *display dinosaur*");
 			}
+		} catch (FileNotFoundException e){
+			System.out.print("File not found");
+		} catch (Exception e) {
 		}
 	}
+	
 	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
