@@ -58,6 +58,10 @@ public class Search {
 			if (s != null)
 				returnString += s + "\n";
 		}
+		if (returnString.length() == 0) {
+			System.out.println("No match.");
+			System.exit(0);
+		}
 		if (returnString.length() >= 2) {
 			returnString = returnString.substring(0, returnString.length() - 1);
 		}
@@ -79,6 +83,8 @@ public class Search {
 	 * @param l
 	 *            true = return only the document name | false return line +
 	 *            document name
+	 * @param name
+	 *            names of the textdocuments
 	 * @return String with every line that contains the keyword.
 	 */
 	protected static String multiSearch(String keyword, String[] text, boolean i, boolean l, String[] name) {
@@ -101,6 +107,11 @@ public class Search {
 				}
 			}
 		}
+		if (returnString.length() == 0) {
+			System.out.println("No match.");
+			System.exit(0);
+		}
+
 		if (returnString.length() >= 2) {
 			returnString = returnString.substring(0, returnString.length() - 1);
 		}
