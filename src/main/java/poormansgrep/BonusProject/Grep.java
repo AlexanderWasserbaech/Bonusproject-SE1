@@ -14,7 +14,7 @@ import poormansgrep.BonusProject.Search;
 public class Grep {
 	/**
 	 * Implements grep options -l and -i and uses singleSearch and multiSearch of class search.
-	 * Returns nothing but a console output regarding the options and given textfile/s 
+	 * Returns nothing but a console output regarding the options and given textfile/s or pipe
 	 * as input.
 	 * 
 	 * @param commands
@@ -30,7 +30,7 @@ public class Grep {
 		String[] str = {"",""}, fileName = new String[2];
 		String key = "";
 		Boolean l = false,i = false;
-		int j2 = 0, fileCount = 0;
+		int j2 = 0, fileCount = 0, keyPos = 0;
 		int save = 0;
 		Path p;
 		try{
@@ -62,12 +62,17 @@ public class Grep {
 					
 				} else if (j==j2) {
 					key = commands[j];
+					keyPos = j;
 				} else if (commands[j].contains(".txt")){
 					fileCount++;
 				}
 			}
 				switch (fileCount) {
 				case 1:
+					if(commands.length == keyPos + 3){
+						System.out.print("One filename or path was corrupt");
+						throw new Exception();
+					}
 					if(commands[save].equals("-l")){
 						System.out.print("Wrong command for single file");
 						throw new Exception();
