@@ -1,5 +1,10 @@
 package poormansgrep.BonusProject;
 
+/**
+ * The Search class implements methods used for searching one or multiple
+ * strings by certain keywords.
+ *
+ */
 public class Search {
 	/**
 	 * USED BY singleSearch AND multiSearch Searches the String for a keyword.
@@ -53,8 +58,8 @@ public class Search {
 			if (s != null)
 				returnString += s + "\n";
 		}
-		if(returnString.length()>=2){
-			returnString = returnString.substring(0,returnString.length()-1);
+		if (returnString.length() >= 2) {
+			returnString = returnString.substring(0, returnString.length() - 1);
 		}
 		return returnString;
 	}
@@ -78,26 +83,26 @@ public class Search {
 	 */
 	protected static String multiSearch(String keyword, String[] text, boolean i, boolean l, String[] name) {
 		String returnString = "";
-		
+
 		if (!l) {
 			for (int j = 0; j < text.length; j++) {
 				for (String s : search(keyword, text[j], i)) {
 					if (s != null)
-						returnString += name[j] + ": " + s + "\n"; 
+						returnString += name[j] + ": " + s + "\n";
 				}
 			}
 		} else {
 			for (int j = 0; j < text.length; j++) {
 				for (String s : search(keyword, text[j], i)) {
 					if (s != null) {
-						returnString += name[j]  + "\n";
+						returnString += name[j] + "\n";
 						break;
 					}
 				}
 			}
 		}
-		if(returnString.length()>=2){
-			returnString = returnString.substring(0,returnString.length()-1);
+		if (returnString.length() >= 2) {
+			returnString = returnString.substring(0, returnString.length() - 1);
 		}
 		return returnString;
 	}
