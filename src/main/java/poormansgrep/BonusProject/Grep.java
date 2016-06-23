@@ -55,7 +55,7 @@ public class Grep {
 							j2++;
 							break;
 						default:
-							break;
+							throw new IllegalArgumentException();
 						}
 
 					} else if (j == j2) {

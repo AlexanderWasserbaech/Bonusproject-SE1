@@ -28,7 +28,7 @@ public class AppTest {
 	public void setUpStreams() {
 		System.setOut(new PrintStream(outContent));
 		try {
-			file = new File("./test.txt");
+			file = new File("./input.txt");
 			fop = new FileOutputStream(file);
 			if (!file.exists()) {
 				file.createNewFile();
@@ -56,15 +56,12 @@ public class AppTest {
 	 * Test Checks if the testing file itself exists
 	 */
 	@Test
-	public void checkTestFilesExists() {
-		File file2 = new File("./hugeText.txt");
-		Boolean[] expected = { true, true };
-		Boolean[] actuals = { file.exists(), file2.exists() };
-		Assert.assertArrayEquals(expected, actuals);
+	public void checkTestFileExists() {
+		Assert.assertTrue(file.exists());
 	}
 
 	/**
-	 * Test checks output for null array given to grepTest
+	 * Test checks for exceptions when null or empty array given to grepTest
 	 */
 	@Test
 	public void testNullOrEmptyArray() {
@@ -78,19 +75,25 @@ public class AppTest {
 	 */
 	@Test
 	public void testGrepHugeFile() {
-		String[] commands = { "vel", "./hugeText.txt" };
+		String content = HugeString.hugeString;
+		try {
+			byte[] byteContent = content.getBytes();
+			fop.write(byteContent);
+			fop.flush();
+			fop.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String[] commands = { "vel", "./input.txt" };
 		Grep.grepTest(commands);
 	}
 
 	/**
 	 * Check if GrepTest can handle an empty file
-	 * 
-	 * @throws IOException
-	 * @throws FileNotFoundException
 	 */
 	@Test
 	public void testGrepEmptyFile() {
-		String[] commands = { "red", "./test.txt" };
+		String[] commands = { "red", "./input.txt" };
 		String content = "", expected = "No match.";
 		try {
 			byte[] byteContent = content.getBytes();
@@ -115,9 +118,9 @@ public class AppTest {
 	 */
 	@Test
 	public void testSpecialCharacters() {
-		String[][] commands = { { "!", "./test.txt" }, { "§", "./test.txt" }, { "$", "./test.txt" },
-				{ "%", "./test.txt" }, { "&", "./test.txt" }, { "(", "./test.txt" }, { "}", "./test.txt" },
-				{ "_", "./test.txt" }, { "#", "./test.txt" }, { "*", "./test.txt" }, { "~", "./test.txt" }, };
+		String[][] commands = { { "!", "./input.txt" }, { "§", "./input.txt" }, { "$", "./input.txt" },
+				{ "%", "./input.txt" }, { "&", "./input.txt" }, { "(", "./input.txt" }, { "}", "./input.txt" },
+				{ "_", "./input.txt" }, { "#", "./input.txt" }, { "*", "./input.txt" }, { "~", "./input.txt" }, };
 		String[] expected = { "!", "§", "$", "%", "&", "(", "}", "_", "#", "*", "~" };
 		String[] actuals = new String[expected.length];
 		String content = "!\n§\n$\n%\n&\n(\n}\n_\n-\n#\n*\n~";
@@ -141,22 +144,48 @@ public class AppTest {
 	}
 
 	/**
+	 * testing testGrep with wrong command input
+	 */
+	@Test
+	public void testWrongCommandInput() {
+		String content = "test";
+		String[][] commands = { { "-k", "red", "./input.txt" }, { "cd", "red" }, { "-jk", "red" }, { "-kda", "red" } };
+		String[] expecteds = { "Unknown command", "No textfile was given or empty piping", "Unknown command",
+				"Unknown command" };
+		String[] actuals = new String[expecteds.length];
+		try {
+			byte[] byteContent = content.getBytes();
+			fop.write(byteContent);
+			fop.flush();
+			fop.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		for (int i = 0; i < expecteds.length; i++) {
+			System.setOut(new PrintStream(outContent));
+			Grep.grepTest(commands[i]);
+			actuals[i] = outContent.toString();
+			System.setOut(null);
+			outContent.reset();
+		}
+		Assert.assertArrayEquals(expecteds, actuals);
+	}
+
+	/**
 	 * Testing method to check sysout of TestGrep with many different command
 	 * inputs and wrong input
 	 */
 	@Test
 	public void testGrepReturnSingleFile() {
-		// to create file and write to it use this example
-		String[][] commands = { { "red", "./test.txt" }, { "-i", "red", "./test.txt" }, { "-l", "red", "./test.txt" },
-				{ "blue", "./test.txt" }, { "red", "./testfalsch.txt" }, { "red" },
-				{ "-adwdawda", "red", "./test.txt" }, { "red", "./test.tct" } };
-		String[] expected = { "Red is a nice color,\neven red roses are better than", "even red roses are better than",
-				"Wrong command for single file", "blue roses.\n" + "Just Kidding, there are no blue roses",
-				"File not found", "No textfile was given or empty piping", "Unknown command",
-				"No textfile was given or empty piping" };
+		String[][] commands = { { "red", "./input.txt" }, { "-i", "red", "./input.txt" },
+				{ "-l", "red", "./input.txt" }, { "blue", "./input.txt" }, { "red", "./wronginput.txt" }, { "red" },
+				{ "-adwdawda", "red", "./input.txt" }, { "red", "./input.tct" } };
+		String[] expected = { "Red wine is tasty\nThe red cross acts worldwide", "The red cross acts worldwide",
+				"Wrong command for single file", "No match.", "File not found", "No textfile was given or empty piping",
+				"Unknown command", "No textfile was given or empty piping" };
 		String[] actuals = new String[expected.length];
-		String content = "Red is a nice color,\n" + "atleast for some,\n" + "even red roses are better than\n"
-				+ "blue roses.\n" + "Just Kidding, there are no blue roses";
+		String content = "Roses are nice flowers.\n" + "Red wine is tasty\n" + "The red cross acts worldwide\n"
+				+ "Mayflower used to be a ship.";
 		try {
 			byte[] byteContent = content.getBytes();
 			fop.write(byteContent);
@@ -181,27 +210,23 @@ public class AppTest {
 	@Test
 	public void testGrepReturnTwoFiles() {
 		File file2;
-		String[][] commands = { { "red", "./test.txt", "./test2.txt" }, { "-i", "red", "./test.txt", "./test2.txt" },
-				{ "-l", "red", "./test.txt", "./test2.txt" }, { "blue", "./test.txt", "./test2.txt" },
-				{ "red", "./testfalsch.txt", "./test2.txt" }, { "red" },
-				{ "-adwdawda", "red", "./test.txt", "./test2.txt" }, { "red", "./test.tct", "./test2.txt" } };
+		String[][] commands = { { "red", "./input.txt", "./inputSecond.txt" },
+				{ "-i", "red", "./input.txt", "./inputSecond.txt" },
+				{ "-l", "red", "./input.txt", "./inputSecond.txt" }, { "blue", "./input.txt", "./inputSecond.txt" },
+				{ "red", "./wronginput.txt", "./inputSecond.txt" }, { "red" },
+				{ "-adwdawda", "red", "./input.txt", "./inputSecond.txt" },
+				{ "red", "./input.tct", "./inputSecond.txt" } };
 		String[] expected = {
-				"test.txt: Red is a nice color,\ntest.txt: even red roses are better than\n"
-						+ "test2.txt: red roses.\ntest2.txt: Just Kidding, there are no red roses",
-				"test.txt: even red roses are better than\n" + "test2.txt: red roses.\n"
-						+ "test2.txt: Just Kidding, there are no red roses",
-				"test.txt\n" + "test2.txt",
-				"test.txt: blue roses.\n" + "test.txt: Just Kidding, there are no blue roses\n"
-						+ "test2.txt: Blue is a nice color,\n" + "test2.txt: even blue roses are better than",
-				"File not found", "No textfile was given or empty piping", "Unknown command",
-				"One filename or path was corrupt" };
+				"input.txt: Red wine is tasty\ninput.txt: The red cross acts worldwide\n"
+						+ "inputSecond.txt: Errors will show up in red.",
+				"input.txt: The red cross acts worldwide\n" + "inputSecond.txt: Errors will show up in red.",
+				"input.txt\n" + "inputSecond.txt", "No match.", "File not found",
+				"No textfile was given or empty piping", "Unknown command", "One filename or path was corrupt" };
 		String[] actuals = new String[expected.length];
-		String content = "Red is a nice color,\n" + "atleast for some,\n" + "even red roses are better than\n"
-				+ "blue roses.\n" + "Just Kidding, there are no blue roses",
-				content2 = "Blue is a nice color,\n" + "atleast for some,\n" + "even blue roses are better than\n"
-						+ "red roses.\n" + "Just Kidding, there are no red roses";
+		String content = "Roses are nice flowers.\n" + "Red wine is tasty\n" + "The red cross acts worldwide\n"
+				+ "Mayflower used to be a ship.", content2 = "Errors will show up in red.\n" + "Let's start bug fixing";
 		try {
-			file2 = new File("./test2.txt");
+			file2 = new File("./inputSecond.txt");
 			FileOutputStream fop2 = new FileOutputStream(file2);
 			if (!file2.exists()) {
 				file2.createNewFile();
