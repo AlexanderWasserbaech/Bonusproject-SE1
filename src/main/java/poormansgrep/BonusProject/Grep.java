@@ -27,15 +27,7 @@ public class Grep {
 	 *             when given path is wrong or file does not exist
 	 * @throws IOException
 	 */
-<<<<<<< HEAD
 	public static void grepTest(String[] commands) {
-=======
-	static BufferedReader source;
-	static FileInputStream fin;
-	static Scanner sc;
-
-	public static void GrepTest(String[] commands) throws FileNotFoundException, IOException {
->>>>>>> origin/master
 		String[] str = { "", "" }, fileName = new String[2];
 		String key = "";
 		Boolean l = false, i = false;
@@ -43,9 +35,7 @@ public class Grep {
 		int save = 0;
 		Path p;
 		try {
-<<<<<<< HEAD
-			if (commands == null || commands.length == 0) { // catch empty
-															// commands array
+			if (commands == null || commands.length == 0) { // catch empty commands array
 				throw new NullPointerException();
 			} else {
 				// evaluate given commands
@@ -53,19 +43,6 @@ public class Grep {
 					if (commands[j].charAt(0) == '-') {
 						if (commands[j].toCharArray().length != 2) {
 							throw new IllegalArgumentException();
-=======
-			if (commands.length == 0) {
-				System.out.print("No Commands were given, for usage give commands in following form:\n\n"
-						+ "grep [-i] [-l] searchString [file 1] [file 2]\n"
-						+ "whereas -i is 'case sensitive' and -l 'output filename'");
-				throw new Exception();
-			} else {
-				for (int j = 0; j < commands.length; j++) {
-					if (commands[j].charAt(0) == '-') {
-						if (commands[j].toCharArray().length > 2) {
-							System.out.print("Unknown command");
-							throw new Exception();
->>>>>>> origin/master
 						}
 						switch (commands[j]) {
 						case "-i":
@@ -88,10 +65,7 @@ public class Grep {
 						fileCount++;
 					}
 				}
-<<<<<<< HEAD
 				// check how many files were given
-=======
->>>>>>> origin/master
 				switch (fileCount) {
 				case 1:
 					if (commands.length == keyPos + 3) {
@@ -163,34 +137,9 @@ public class Grep {
 		} catch (Exception e) {
 		}
 	}
-<<<<<<< HEAD
-=======
-
-	public static void main(String[] args) throws FileNotFoundException, IOException {
->>>>>>> origin/master
-
+	
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		String[] commands = args;
-<<<<<<< HEAD
 		grepTest(commands);
-=======
-		GrepTest(commands);
-
-		// following code is only for testing purpose
-
-		int i = 0;
-		for (String s : args) {
-			if (i == 0) {
-				System.out.println("\nThe following commands were given to GrepTest");
-			}
-			System.out.println(s);
-			commands[i] = s;
-			i++;
-		}
-
-		final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(outContent));
-		System.out.println(outContent.toString());
->>>>>>> origin/master
 	}
 }
