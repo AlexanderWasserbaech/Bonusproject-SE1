@@ -60,8 +60,13 @@ public class Search {
 				returnString += s + "\n";
 		}
 		if (returnString.length() == 0) {
+<<<<<<< HEAD
 			System.out.print("No match.");
 			throw new Exception();
+=======
+			System.out.println("No match.");
+			System.exit(0);
+>>>>>>> origin/master
 		}
 		if (returnString.length() >= 2) {
 			returnString = returnString.substring(0, returnString.length() - 1);
@@ -111,8 +116,13 @@ public class Search {
 			}
 		}
 		if (returnString.length() == 0) {
+<<<<<<< HEAD
 			System.out.print("No match.");
 			throw new Exception();
+=======
+			System.out.println("No match.");
+			System.exit(0);
+>>>>>>> origin/master
 		}
 
 		if (returnString.length() >= 2) {
