@@ -141,5 +141,6 @@ public class Grep {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		String[] commands = args;
 		grepTest(commands);
+		System.out.println("\n");
 	}
 }
